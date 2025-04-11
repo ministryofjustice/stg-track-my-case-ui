@@ -38,8 +38,8 @@ COPY --from=build --chown=appuser:appgroup \
 COPY --from=build --chown=appuser:appgroup \
     /app/node_modules ./node_modules
 
-COPY --from=build --chown=appuser:appgroup \
-    /app/server.js ./server.js
+# COPY --from=build --chown=appuser:appgroup \
+#     /app/server.js ./server.js
 
 # Serve on 8080 — match platform/Helm expectations
 # EXPOSE 3000
@@ -48,4 +48,4 @@ EXPOSE 9999
 # Drop privileges
 USER 1000:1000
 
-CMD ["node", "server.js"]
+CMD ["npm", "run", "start:dev"]
