@@ -1,5 +1,5 @@
 # Stage 1: base image with non-root user
-FROM node:22-alpine AS base
+FROM node:23-alpine AS base
 
 LABEL maintainer="MOJ Strategic Service Transformation Team <STGTransformationTeam@justice.gov.uk>"
 
