@@ -1,0 +1,32 @@
+{% macro actionCard(params) %}
+  {% set title = params.title %}
+  {% set bodyHtml = params.bodyHtml %}
+  {% set linkHref = params.linkHref %}
+  {% set linkText = params.linkText %}
+  {% set notificationCount = params.notificationCount or null %}
+  {% set notificationColor = params.notificationColor or "blue" %}
+
+  {% set badgeClass = "moj-notification-badge" %}
+  {% if notificationCount %}
+    {% set badgeClass = badgeClass + " moj-notification-badge--" + notificationColor %}
+  {% endif %}
+
+  <div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+      <h2 class="govuk-summary-card__title">{{ title }}</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+      <div class="card__body govuk-!-margin-bottom-2">
+        {{ bodyHtml | safe }}
+      </div>
+      <div class="card__footer">
+        {% if notificationCount %}
+          <span class="{{ badgeClass }}">
+            {{ notificationCount }}
+          </span>
+        {% endif %}
+        <a class="govuk-link" href="{{ linkHref }}">{{ linkText }}</a>
+      </div>
+    </div>
+  </div>
+{% endmacro %}

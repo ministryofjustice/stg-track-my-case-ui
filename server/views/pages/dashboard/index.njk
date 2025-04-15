@@ -1,0 +1,78 @@
+{% extends "partials/layout.njk" %}
+{% from "components/action-card.njk" import actionCard %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block beforeContent %}
+
+  {# TODO: Add breadcrumbs when needed #}
+  {# {{ govukBreadcrumbs({
+    items: [
+      {
+        text: "Home",
+        href: "/"
+      }
+    ]
+  }) }} #}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-thirds">
+      <h1 class="govuk-heading-xl">
+        {{ applicationName }}
+      </h1>
+      <p class="govuk-body"><p>Crime reference number: <strong>1234567891011</strong></p>
+    
+    </div>
+    <div class="govuk-grid-row">
+    
+      <div class="govuk-grid-column-one-third">
+        {{ actionCard({
+          title: "View court information",
+          bodyHtml: "<p>See information about the court case, including date, location, your requirements and verdicts</p>",
+          linkHref: "#",
+          linkText: "View court information"
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ actionCard({
+          title: "View your contact details",
+          bodyHtml: "<p>View your contact details, and how you will be kept up to date with changes to case details.</p>",
+          linkHref: "documents",
+          linkText: "Manage your details"
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ actionCard({
+          title: "Manage documents",
+          bodyHtml: "<p>View documents for this case and get support writing your Impact statement.</p>",
+          linkHref: "documents",
+          linkText: "Manage documents",
+          notificationCount: 1,
+          notificationColor: "blue"
+        }) }}
+      </div>
+    </div>
+    {# <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-third">
+        {{ actionCard({
+          title: "View court information",
+          bodyHtml: "<p>See information about the court case, including date, location, your requirements and verdicts</p>",
+          linkHref: "#",
+          linkText: "View court information"
+        }) }}
+      </div>
+      <div class="govuk-grid-column-one-third">
+        {{ actionCard({
+          title: "View court information",
+          bodyHtml: "<p>See information about the court case, including date, location, your requirements and verdicts</p>",
+          linkHref: "#",
+          linkText: "View court information"
+        }) }}
+      </div>
+    </div> #}
+{% endblock %}

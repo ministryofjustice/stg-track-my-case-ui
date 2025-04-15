@@ -8,4 +8,10 @@ router.get('/', (_req, res) => {
   })
 })
 
+router.get('/dashboard', (_req, res) => {
+  res.render('pages/dashboard/index', {
+    currentTime: new Date().toISOString(),
+  })
+})
+
 export default router

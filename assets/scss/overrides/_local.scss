@@ -1,3 +1,39 @@
 .govuk-main-wrapper {
-  min-height: 600px;
+  min-height: 960px;
 }
+
+// ------  action cards ------ //
+.moj-notification-badge--blue {
+  background-color: govuk-colour("blue");
+  color: govuk-colour("white");
+}
+
+.dashboard-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: govuk-spacing(6); 
+}
+.govuk-grid-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.govuk-grid-column-one-third,
+.govuk-grid-column-two-thirds {
+  display: flex;
+}
+
+.govuk-summary-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+// .govuk-summary-card {
+//   display: flex;
+//   flex-direction: column;
+//   height: 100%; 
+// }
+
+// ------ action-card ------ //
+
