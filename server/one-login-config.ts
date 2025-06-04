@@ -2,6 +2,7 @@ import ClientConfiguration from './@types/types/client-configuration.js'
 import { UserIdentityClaim } from './@types/types/user-info.js'
 import * as openidClient from 'openid-client'
 import DIDKeySet from './@types/types/did-keyset.js'
+import paths from './constants/paths'
 
 export class OneLoginConfig {
   private static instance: OneLoginConfig
@@ -14,7 +15,7 @@ export class OneLoginConfig {
       clientId: process.env.OIDC_CLIENT_ID ?? '',
       privateKey: process.env.OIDC_PRIVATE_KEY ?? '',
       clientSecret: process.env.OIDC_CLIENT_SECRET ?? '',
-      issuer: process.env.OIDC_ISSUER ?? 'https://oidc.integration.account.gov.uk/',
+      issuer: process.env.OIDC_ISSUER ?? 'https://oidc.integration.account.gov.uk',
       discoveryUrl: process.env.OIDC_ISSUER
         ? process.env.OIDC_ISSUER + '/.well-known/openid-configuration'
         : 'https://oidc.integration.account.gov.uk/.well-known/openid-configuration',
@@ -140,15 +141,7 @@ export class OneLoginConfig {
   }
 
   public getSignOutLink(): string {
-    return this.getServiceUrl() + '/oidc/logout'
-  }
-
-  public getOpenidClientConfiguration(): openidClient.Configuration {
-    return this.clientConfiguration.openidClientConfiguration!
-  }
-
-  public setOpenidClientConfiguration(openidClientConfiguration: openidClient.Configuration): void {
-    this.clientConfiguration.openidClientConfiguration = openidClientConfiguration
+    return this.getServiceUrl() + paths.SIGN_OUT
   }
 
   public getImmediateRedirect(): boolean {

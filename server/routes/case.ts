@@ -8,11 +8,12 @@ import courtInformationTwoController from '../controllers/court-information-two-
 
 import { AuthenticatedUser } from '../helpers/user-status'
 import asyncMiddleware from '../middleware/asyncMiddleware'
+import paths from '../constants/paths'
 
 export default function routes(app: express.Express): void {
   // Page: Select your case
   app.get(
-    '/case/select',
+    paths.CASE.SELECT,
     AuthenticatedUser,
     asyncMiddleware((req, res, next) => {
       caseSelectController(req, res, next)
@@ -21,7 +22,7 @@ export default function routes(app: express.Express): void {
 
   // Page: Case dashboard
   app.get(
-    '/case/dashboard',
+    paths.CASE.DASHBOARD,
     AuthenticatedUser,
     asyncMiddleware((req, res, next) => {
       caseDashboardController(req, res, next)
