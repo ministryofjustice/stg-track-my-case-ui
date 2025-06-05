@@ -8,6 +8,7 @@ import courtInformationTwoController from '../controllers/court-information-two-
 
 import { AuthenticatedUser } from '../helpers/user-status'
 import asyncMiddleware from '../middleware/asyncMiddleware'
+import paths from '../constants/paths'
 
 export default function routes(app: express.Express): void {
   // Page: Select your case
