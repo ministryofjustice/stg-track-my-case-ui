@@ -37,19 +37,17 @@ export interface ApiConfig {
   agent: AgentConfig
 }
 
-const replacePort = (url: string, port: string): string =>{
+const replacePort = (url: string, port: string): string => {
   if (url.includes(':port')) {
-    return url.replace(':port', (':' + port))
+    return url.replace(':port', ':' + port)
   }
   return url
 }
 
-const oidcIssuer = get('OIDC_ISSUER', '', requiredInProduction)
-
 const port = get('NODE_PORT', '9999')
+const serviceUrl = replacePort(get('SERVICE_URL', ''), port)
 
-const originalServiceUrl = get('SERVICE_URL', '')
-const serviceUrl = replacePort(originalServiceUrl, port)
+const oidcIssuer = get('OIDC_ISSUER', '', requiredInProduction)
 
 const config = {
   buildNumber: get('BUILD_NUMBER', '1_0_0', requiredInProduction),
@@ -75,7 +73,6 @@ const config = {
       url: oidcIssuer,
       jwksUrl: oidcIssuer + '/.well-known/jwks.json',
       discoveryUrl: oidcIssuer + '/.well-known/openid-configuration',
-      homeUrl: get('OIDC_ISSUER_HOME', '', requiredInProduction),
       clientId: get('OIDC_CLIENT_ID', '', requiredInProduction),
       privateKey: get('OIDC_PRIVATE_KEY', '', requiredInProduction),
       timeout: 20000,
@@ -83,9 +80,12 @@ const config = {
       ivIssuer: get('IV_ISSUER', '', requiredInProduction),
       ivDidUri: get('IV_DID_URI', '', requiredInProduction),
       scopes: get('OIDC_SCOPES', 'email,openid', requiredInProduction),
-      authorizeRedirectUrl: get('OIDC_AUTHORIZE_REDIRECT_URL', '', requiredInProduction),
-      postLogoutRedirectUrl: get('OIDC_POST_LOGOUT_REDIRECT_URL', '', requiredInProduction),
-      claims: (get('OIDC_CLAIMS', 'https://vocab.account.gov.uk/v1/coreIdentityJWT', requiredInProduction).split(',') as UserIdentityClaim[]),
+      authorizeRedirectUrl: replacePort(get('OIDC_AUTHORIZE_REDIRECT_URL', '', requiredInProduction), port),
+      postLogoutRedirectUrl: replacePort(get('OIDC_POST_LOGOUT_REDIRECT_URL', '', requiredInProduction), port),
+      backChannelLogoutUri: replacePort(get('OIDC_BACK_CHANNEL_LOGOUT_URI', '', requiredInProduction), port),
+      claims: get('OIDC_CLAIMS', 'https://vocab.account.gov.uk/v1/coreIdentityJWT', requiredInProduction).split(
+        ',',
+      ) as UserIdentityClaim[],
       tokenAuthMethod: get('OIDC_TOKEN_AUTH_METHOD', 'private_key_jwt', requiredInProduction),
       ivPublicKeys: [] as DIDKeySet[],
       authenticationVtr: get('AUTH_VECTOR_OF_TRUST', 'Cl.Cm', requiredInProduction),
